@@ -1,1 +1,156 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow-y: hidden;
+    &.in-transition {
+        transition: transform 900ms ease;
+      }
+}
+
+.cdk-global-scrollblock {
+    left: 0 !important;
+}
+
+// hide scrollbar
+body::-webkit-scrollbar { height: 0 !important }
+body { overflow: -moz-scrollbars-none; }
+body { -ms-overflow-style: none; }
+
+
+
+
+
+// material styles overriding
+
+
+
+
+// dialog
+.add-dialog-cont {
+    .mat-dialog-container {
+        min-width: 65vw;
+        padding: 0;
+        .mat-dialog-content {
+            margin: 0;
+            padding: 0;
+            max-height: auto;
+        }
+        .mat-form-field {
+            width: 70%;
+        }
+    }
+    .add-section,.list-section {
+        flex: 1;
+    }
+    .list-section {
+        background-color: #ccc;
+        overflow: auto;
+        .empty-state {
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            opacity: 0.75;
+        }
+    }
+
+    .catogory-wrap {
+        padding-bottom: 25px;
+        padding-top: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .tabs-button {
+        width: 70%;
+        text-align: right;
+    }
+    .list-section-cont {
+        padding: 20px;
+        .list-item-cont {
+            position: relative;
+        }
+        .list-item {
+            white-space: nowrap;
+            cursor: pointer;
+            background-color: #000000cf;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            color: #ffffffb0;
+            padding: 3px 15px;
+            padding-right: 0;
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+        .remove-item {
+            position: absolute;
+            right: 0;
+            top: 3px;
+            color: #ffffffb0;
+            cursor: pointer;
+            height: 30px;
+            padding-top: 5px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
+            background-color: #960f0f;
+            margin-top: -3px;
+            &:hover {
+                color: #fff
+            }
+        }
+    }
+    .dialog-head {
+        padding: 20px;
+        font-size: 18px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 8px 0;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-label {
+        top: 20px;
+    }
+    .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label, .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+        transform: translateY(-1.0em) scale(.75);
+    }
+
+    .img-uplaod-label {
+        cursor: pointer;
+        width: 70%;
+        padding: 8px 0;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        position: relative;
+        padding-left: 50px;
+        color: #666666cf;
+        .upload-icon {
+            display: inline-block;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 100%;
+            background-color: #ccc;
+        }
+    }
+
+    .wrap-section > * {
+        flex: 1;
+    }
+
+}
+
+

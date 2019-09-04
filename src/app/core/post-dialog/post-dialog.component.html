@@ -1,0 +1,259 @@
+<div mat-dialog-content class="d-flex">
+    <section class="add-section">
+        <mat-tab-group>
+            <mat-tab label="Page">
+              <div class="d-flex wrap-section">
+                <div class="catogory-wrap">
+                  <mat-form-field appearance="outline">
+                      <mat-label>Page Name</mat-label>
+                    <input matInput placeholder="Catogary Name" [formControl]="pName">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                      <mat-label>From</mat-label>
+                      <input type="number" matInput placeholder="From"  [formControl]="pFrom">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>To</mat-label>
+                        <input type="number" matInput placeholder="To"  [formControl]="pTo">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Year(s) per pixel</mat-label>
+                        <input type="number" matInput placeholder="unit"  [formControl]="pUnit">
+                      </mat-form-field>
+                      <label for="image-upload" class="img-uplaod-label">
+                        <span class="upload-icon">
+                          <mat-icon>arrow_upward</mat-icon>
+                        </span>
+                        <input type="file" id="image-upload" class="d-none" />
+                        <span>Upload Image (optional)</span>
+                      </label>
+                      <div class="tabs-button mt-2">
+                          <!-- <button mat-button mat-stroked-button color="primary" class="mr-2"> Next </button> -->
+                          <button mat-button (click)="addList(pageLists, pName, pFrom, pTo, null, pUnit)" mat-raised-button color="primary"> Add</button>
+                      </div>
+                </div>
+                <section class="list-section">
+                  <div *ngIf="pageLists.length > 0" class="list-section-cont">
+                      <div class="list-item-cont" *ngFor="let list of pageLists">
+                        <div class="list-item">
+                            <span>{{list.name}}</span>
+                          <span>{{list.from}} - {{list.to}}</span>
+                        </div>
+                        <mat-icon class="remove-item">delete_forever</mat-icon>
+                      </div>
+                  </div>
+                  <div class="empty-state text-center" *ngIf="pageLists.length === 0">
+                    You have not added any Page.
+                    <br>
+                    please add it from left panel.
+                  </div>
+                </section>
+              </div>
+            </mat-tab>
+
+
+
+            <mat-tab label="Catogory" >
+              <div class="d-flex wrap-section">
+                <div class="catogory-wrap">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Page</mat-label>
+                        <mat-select [formControl]="slectedPage">
+                          <mat-option *ngFor="let page of pageLists" [value]="page.value">
+                            {{page.viewValue}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  <mat-form-field appearance="outline">
+                     <mat-label>catogory Name</mat-label>
+                    <input matInput placeholder="catogory Name" [formControl]="cName">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                      <mat-label>From</mat-label>
+                    <input matInput placeholder="From" [formControl]="pFrom">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                      <mat-label>To</mat-label>
+                    <input matInput placeholder="to" [formControl]="pTo">
+                  </mat-form-field>
+                  <div class="tabs-button mt-2">
+                      <button mat-button mat-raised-button color="primary"> Add</button>
+                  </div>
+                </div>
+                <section class="list-section">
+                  <div *ngIf="catogoryLists.length > 0" class="list-section-cont">
+                      <div class="list-item-cont" *ngFor="let list of catogoryLists">
+                        <div class="list-item">
+                            <span>{{list.name}}</span>
+                          <span>{{list.from}} - {{list.to}}</span>
+                        </div>
+                        <mat-icon class="remove-item">delete_forever</mat-icon>
+                      </div>
+                  </div>
+
+                  <div class="empty-state text-center" *ngIf="catogoryLists.length === 0">
+                    You have not added any catogory.
+                    <br>
+                    please add it from left panel.
+                  </div>
+
+                </section>
+              </div>
+            </mat-tab>
+
+
+            <mat-tab label="Sub-Catogory" >
+                <div class="d-flex wrap-section">
+                    <div class="catogory-wrap">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Select Catogory</mat-label>
+                            <mat-select [formControl]="slectedCatogory">
+                              <mat-option *ngFor="let catogory of catogoryLists" [value]="catogory.value">
+                                {{catogory.viewValue}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                      <mat-form-field appearance="outline">
+                         <mat-label>Sub-catogory Name</mat-label>
+                        <input matInput placeholder="catogory Name" [formControl]="sName">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                          <mat-label>From</mat-label>
+                        <input matInput placeholder="From" [formControl]="sFrom">
+                      </mat-form-field>
+                      <mat-form-field appearance="outline">
+                          <mat-label>To</mat-label>
+                        <input matInput placeholder="to" [formControl]="sTo">
+                      </mat-form-field>
+                      <div class="tabs-button mt-2">
+                          <button mat-button mat-raised-button color="primary"> Add</button>
+                      </div>
+                    </div>
+                  <section class="list-section">
+                    <div *ngIf="subCatogoryLists.length > 0" class="list-section-cont">
+                        <div class="list-item-cont" *ngFor="let list of subCatogoryLists">
+                          <div class="list-item">
+                              <span>{{list.name}}</span>
+                            <span>{{list.from}} - {{list.to}}</span>
+                          </div>
+                          <mat-icon class="remove-item">delete_forever</mat-icon>
+                        </div>
+                    </div>
+
+                    <div class="empty-state text-center" *ngIf="subCatogoryLists.length === 0">
+                      You have not added any catogory.
+                      <br>
+                      please add it from left panel.
+                    </div>
+
+                  </section>
+                </div>
+              </mat-tab>
+
+
+
+              <mat-tab label="Division" >
+                  <div class="d-flex wrap-section">
+                      <div class="catogory-wrap">
+                          <mat-form-field appearance="outline" [formControl]="slectedSubCatogory">
+                              <mat-label>Select Sub-Catogory</mat-label>
+                              <mat-select>
+                                <mat-option *ngFor="let catogory of subCatogoryLists" [value]="catogory.value">
+                                  {{catogory.viewValue}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                        <mat-form-field appearance="outline">
+                           <mat-label>Division Name</mat-label>
+                          <input matInput placeholder="catogory Name" [formControl]="dName">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>From</mat-label>
+                          <input matInput placeholder="From" [formControl]="dFrom">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>To</mat-label>
+                          <input matInput placeholder="to" [formControl]="dTo">
+                        </mat-form-field>
+                        <div class="tabs-button mt-2">
+                            <button mat-button mat-raised-button color="primary"> Add</button>
+                        </div>
+                      </div>
+                    <section class="list-section">
+                      <div *ngIf="divisionLists.length > 0" class="list-section-cont">
+                          <div class="list-item-cont" *ngFor="let list of divisionLists">
+                            <div class="list-item">
+                                <span>{{list.name}}</span>
+                              <span>{{list.from}} - {{list.to}}</span>
+                            </div>
+                            <mat-icon class="remove-item">delete_forever</mat-icon>
+                          </div>
+                      </div>
+
+                      <div class="empty-state text-center" *ngIf="divisionLists.length === 0">
+                        You have not added any Division.
+                        <br>
+                        please add it from left panel.
+                      </div>
+
+                    </section>
+                  </div>
+                </mat-tab>
+
+
+
+          </mat-tab-group>
+
+
+    </section>
+
+  </div>
+
+
+
+
+
+  <!-- <h1 mat-dialog-title>Add group </h1>
+  <div class="container-fluid">
+    <div class="row catogory-wrap">
+      <div class="col-4">
+         <mat-form-field>
+               <input matInput placeholder="Name">
+          </mat-form-field>
+      </div>
+      <div class="col-4">
+          <mat-form-field>
+            <input matInput placeholder="From">
+          </mat-form-field>
+        </div>
+        <div class="col-4">
+          <mat-form-field>
+            <input matInput placeholder="To">
+          </mat-form-field>
+        </div>
+    </div>
+
+    <button mat-button >Add Subcatogory</button>
+    <mat-form-field>
+      <input matInput placeholder="subcatogary Name">
+    </mat-form-field>
+    <div>
+      <div class="w-50">
+        <mat-form-field>
+          <input matInput placeholder="From">
+        </mat-form-field>
+      </div>
+      <div class="w-50">
+        <mat-form-field>
+          <input matInput placeholder="To">
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button >No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+  </div> -->

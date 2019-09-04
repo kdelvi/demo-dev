@@ -1,0 +1,70 @@
+<div [ngStyle]="{'width.px': years/scale}">
+    <app-home></app-home>
+    <section class="time-wrapper"  [ngStyle]="{'width.px': years/scale}">
+        <div class="bg-image" style="background-image:url('../../../assets/images/13-132079_golden-sunset-above-the-sea-wallpaper-hdr-landscape.jpg')"></div>
+        <div class="img-wrap" *ngFor="let item of items" [style.left.px]="item.year">
+            <img [src]="item.url">
+            <span>{{item.name}}</span>
+        </div>
+        <div class="img-wrap" [style.left.px]="'15000'">
+            <img [src]="'https://i0.wp.com/freepngimages.com/wp-content/uploads/2017/02/t-rex-dinosaur.png?w=1000'">
+            <span>last</span>
+        </div>
+
+
+
+        <button class="menu-btn" mat-icon-button (click)="openDialog()">
+            <mat-icon>add_circle</mat-icon>
+        </button>
+
+
+            <div class="scale-pointer"><span> <mat-icon>keyboard_arrow_down</mat-icon> </span> {{scrolled}} Years </div>
+            <!-- <button mat-mini-fab  class="move-scroll scroll-left" (click)="scrollLeft()"><mat-icon>chevron_left</mat-icon></button>
+            <button mat-mini-fab class="move-scroll scroll-right" (click)="scrollRight(years/scale)" ><mat-icon>chevron_right</mat-icon></button>
+            <div class="theEnd float-right"></div> -->
+
+            <div class="scroll-option">
+                    <button mat-mini-fab  class="scroll-actions backword"  (click)="prevItem()"><mat-icon>fast_rewind</mat-icon></button>
+                    <button mat-mini-fab  class="scroll-actions"  (mouseenter)="playScroll()" (mouseleave)="stopScroll()"><mat-icon>speed</mat-icon></button>
+                    <button mat-mini-fab  class="scroll-actions"  (click)="nextItem()"><mat-icon>fast_forward</mat-icon></button>
+
+            </div>
+    </section>
+</div>
+<!-- <div class="catogary-wrap">
+    <span class="catogary" *ngFor="let catogory of catogories">
+        <span class="catogary-text-wrap">
+            <span></span>
+            <span>
+                {{catogory.name}}
+                <span *ngIf="catogory.sub && catogory.sub.name">> {{catogory.sub.name}} </span>
+            </span>
+        </span>
+    </span>
+    <span class="catogary">
+            <span class="catogary-text-wrap">
+                <span></span>
+                <span></span>
+            </span>
+        </span>
+</div> -->
+<div class="bottom-catogaries">
+    <span class="goTobegining" (click)="goTobegining()" *ngIf="!catogoryHide"></span>
+    <div class="page-catogories-wrap active" *ngFor="let catogory of catogories, let i = index" [class.d-none]="!catogoryExpand[i] && catogoryHide">
+        <span class="label" (click)="ShowSubcatogory(catogory.fromAge, i, (catogory.geSubCategories && catogory.geSubCategories.length > 0))"   [class.expandCat]="catogoryExpand[i]" > {{catogory.name}}</span>
+
+        <div class="page-subcatogories" *ngIf="catogory.geSubCategories && catogory.geSubCategories.length > 0" >
+            <span (click)="gotoCatogory()" class="curr-cat" [class.d-none]="!subCatogoryExpand[j] && subCatogoryHide"> {{catogory.name}} <mat-icon>keyboard_arrow_right</mat-icon></span>
+            <div class="page-subcatogories-wrap" *ngFor="let subCategory of catogory.geSubCategories,  let j = index" [class.d-none]="!subCatogoryExpand[j] && subCatogoryHide">
+                <span class="label" (click)="ShowDivision(subCategory.fromAge, j, (subCategory.geSubCategoriesDivision && subCategory.geSubCategoriesDivision.length > 0))" [class.expandSubCat]="subCatogoryExpand[i]"> {{subCategory.name}} </span>
+                <div class="page-division" *ngIf="subCategory.geSubCategoriesDivision && subCategory.geSubCategoriesDivision.length > 0">
+                    <span (click)="gotoSubCatogory()" class="curr-cat">  {{subCategory.name}} <mat-icon>keyboard_arrow_right</mat-icon> </span>
+                    <div class="page-division-wrap" *ngFor="let division of subCategory.geSubCategoriesDivision">
+                        <span class="label" (click)="ShowDivisionItem(division.fromAge)"> {{division.name}} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

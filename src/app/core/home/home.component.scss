@@ -1,13 +1,11 @@
 .home-wrap {
     width: 100vw;
-    float: left;
     height: 100vh;
     background-color: #000;
     color: #fff;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    position: relative;
     z-index: 2;
     .text-home-wrap {
         max-width: 40%;

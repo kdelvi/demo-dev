@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://fossils.herokuapp.com",
+    "secure": false
+  }
+}

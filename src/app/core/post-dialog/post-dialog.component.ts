@@ -61,9 +61,8 @@ export class PostDialogComponent {
 
   addList(list, name, from, to, group, unit?) {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': '*'
-      });
+       'no-auth': 'true',
+    });
     list.push(
       {
         'name': name.value,

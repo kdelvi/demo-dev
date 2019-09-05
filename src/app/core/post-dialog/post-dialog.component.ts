@@ -95,9 +95,9 @@ export class PostDialogComponent implements OnInit {
     });
     let api;
     if( parent ){
-      api = this.apiBase + type + parent + postName;
+      api = this.apiBase + type +'/'+ parent.value + '/' + postName;
     } else {
-      api = this.apiBase + type + postName;
+      api = this.apiBase + type + '/' + postName;
     }
 
 
@@ -116,20 +116,42 @@ export class PostDialogComponent implements OnInit {
 
     list.push(value);
 
-    this.apiService.apiCall('POST', api, list[list.length - 1], false, {headers: headers}).subscribe(res => {
-      console.log('success');
+    this.apiService.apiCall('POST', api, value , false, {headers: headers}).subscribe(res => {
       console.log(res);
+      this.getAllList();
     });
 
     name.setValue('');
     from.setValue('');
     to.setValue('');
+
+    if(unit) {
     unit.setValue('');
+    unit.markAsUntouched();
+    }
+
+    if(parent) {
+      parent.setValue('');
+      parent.markAsUntouched();
+    }
+
+
+    if(imageUrl) {
+      imageUrl.setValue('');
+      imageUrl.markAsUntouched();
+    }
 
     name.markAsUntouched();
     from.markAsUntouched();
     to.markAsUntouched();
-    unit.markAsUntouched();
+  }
+
+
+  editList(list, name, from , to , unit?) {
+    name.setValue(list.name);
+    from.setValue(+list.from);
+    to.setValue(+list.to);
+
   }
 
 }

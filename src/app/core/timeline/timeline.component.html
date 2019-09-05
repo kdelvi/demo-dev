@@ -1,5 +1,4 @@
-<div [ngStyle]="{'width.px': years/scale}">
-    <app-home></app-home>
+<div>
     <section class="time-wrapper"  [ngStyle]="{'width.px': years/scale}">
         <div class="bg-image" style="background-image:url('../../../assets/images/13-132079_golden-sunset-above-the-sea-wallpaper-hdr-landscape.jpg')"></div>
         <div class="img-wrap" *ngFor="let item of items" [style.left.px]="item.year">

@@ -20,16 +20,16 @@
                         <mat-label>Year(s) per pixel</mat-label>
                         <input type="number" matInput placeholder="unit"  [formControl]="pUnit">
                       </mat-form-field>
-                      <label for="image-upload" class="img-uplaod-label">
+                      <!-- <label for="image-upload" class="img-uplaod-label">
                         <span class="upload-icon">
                           <mat-icon>arrow_upward</mat-icon>
                         </span>
                         <input type="file" id="image-upload" class="d-none" />
                         <span>Upload Image (optional)</span>
-                      </label>
+                      </label> -->
                       <div class="tabs-button mt-2">
                           <!-- <button mat-button mat-stroked-button color="primary" class="mr-2"> Next </button> -->
-                          <button mat-button (click)="addList(pageLists, pName, pFrom, pTo, null, pUnit)" mat-raised-button color="primary"> Add</button>
+                          <button mat-button (click)="addList(pageLists, pName, pFrom, pTo, 'page', 'addPage', null, null, pUnit)" mat-raised-button color="primary"> Add</button>
                       </div>
                 </div>
                 <section class="list-section">
@@ -59,8 +59,8 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Select Page</mat-label>
                         <mat-select [formControl]="slectedPage">
-                          <mat-option *ngFor="let page of pageLists" [value]="page.value">
-                            {{page.viewValue}}
+                          <mat-option *ngFor="let page of pageLists" [value]="page.id">
+                            {{page.name}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -69,15 +69,19 @@
                     <input matInput placeholder="catogory Name" [formControl]="cName">
                   </mat-form-field>
                   <mat-form-field appearance="outline">
+                     <mat-label>Image URL</mat-label>
+                    <input matInput placeholder="Enter Image URL" [formControl]="imageUrl">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
                       <mat-label>From</mat-label>
-                    <input matInput placeholder="From" [formControl]="pFrom">
+                    <input matInput placeholder="From" [formControl]="cFrom">
                   </mat-form-field>
                   <mat-form-field appearance="outline">
                       <mat-label>To</mat-label>
-                    <input matInput placeholder="to" [formControl]="pTo">
+                    <input matInput placeholder="to" [formControl]="cTo">
                   </mat-form-field>
                   <div class="tabs-button mt-2">
-                      <button mat-button mat-raised-button color="primary"> Add</button>
+                      <button mat-button mat-raised-button color="primary" (click)="addList(catogoryLists, cName, cFrom, cTo, 'catogory', 'addCatogory', imageUrl, slectedPage)"> Add</button>
                   </div>
                 </div>
                 <section class="list-section">
@@ -108,8 +112,8 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Select Catogory</mat-label>
                             <mat-select [formControl]="slectedCatogory">
-                              <mat-option *ngFor="let catogory of catogoryLists" [value]="catogory.value">
-                                {{catogory.viewValue}}
+                              <mat-option *ngFor="let catogory of catogoryLists" [value]="catogory.id">
+                                {{catogory.name}}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -126,7 +130,7 @@
                         <input matInput placeholder="to" [formControl]="sTo">
                       </mat-form-field>
                       <div class="tabs-button mt-2">
-                          <button mat-button mat-raised-button color="primary"> Add</button>
+                          <button mat-button mat-raised-button color="primary" (click)="addList(subCatogoryLists, sName, sFrom, sTo, 'subCatogory', 'addSubCatogory', null, slectedCatogory)"> Add</button>
                       </div>
                     </div>
                   <section class="list-section">
@@ -158,8 +162,8 @@
                           <mat-form-field appearance="outline" [formControl]="slectedSubCatogory">
                               <mat-label>Select Sub-Catogory</mat-label>
                               <mat-select>
-                                <mat-option *ngFor="let catogory of subCatogoryLists" [value]="catogory.value">
-                                  {{catogory.viewValue}}
+                                <mat-option *ngFor="let catogory of subCatogoryLists" [value]="catogory.id">
+                                  {{catogory.name}}
                                 </mat-option>
                               </mat-select>
                             </mat-form-field>
@@ -176,7 +180,7 @@
                           <input matInput placeholder="to" [formControl]="dTo">
                         </mat-form-field>
                         <div class="tabs-button mt-2">
-                            <button mat-button mat-raised-button color="primary"> Add</button>
+                            <button mat-button mat-raised-button color="primary" (click)="addList(divisionLists, dName, dFrom, dTo, 'subCatogoryDiv', 'addSubCatogory', null, slectedSubCatogory)"> Add</button>
                         </div>
                       </div>
                     <section class="list-section">

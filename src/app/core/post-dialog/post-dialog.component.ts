@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ApiService } from '../../services/api.service';
@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
   templateUrl: './post-dialog.component.html',
   styleUrls: ['./post-dialog.component.scss']
 })
-export class PostDialogComponent {
+export class PostDialogComponent implements OnInit {
 
   public invalidCatogary = true;
 
@@ -20,6 +20,7 @@ export class PostDialogComponent {
 
   slectedPage = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
   cName = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+  imageUrl = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
   cFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
   cTo = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
 
@@ -33,7 +34,7 @@ export class PostDialogComponent {
   dFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
   dTo = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
 
-  private apiBase = 'https://fossils.herokuapp.com/api/page/addPage'
+  private apiBase = 'https://fossils.herokuapp.com/api/'
 
 
 
@@ -49,6 +50,10 @@ export class PostDialogComponent {
     public dialogRef: MatDialogRef<PostDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {}) {}
 
+    ngOnInit() {
+      this.getAllList();
+    }
+
   public noWhitespaceValidator(control: FormControl) {
       const isWhitespace = (control.value || '').trim().length === 0;
       const isValid = !isWhitespace;
@@ -59,20 +64,59 @@ export class PostDialogComponent {
     this.dialogRef.close();
   }
 
-  addList(list, name, from, to, group, unit?) {
+
+  getAllList() {
+    const allPages = this.apiBase + 'page/getAllPages';
+    const allCat = this.apiBase + 'category/getAllCategory';
+    const allsubCat = this.apiBase + 'subCategory/getAllSubCategory';
+    const allDiv = this.apiBase + 'subCategoryDiv/getAllSubCategory';
+
+    this.apiService.apiCall('GET', allPages).subscribe(res => {
+      this.pageLists = res;
+    })
+
+    this.apiService.apiCall('GET', allCat).subscribe(res => {
+      this.catogoryLists = res;
+    })
+
+    this.apiService.apiCall('GET', allsubCat).subscribe(res => {
+      this.subCatogoryLists = res;
+    })
+
+    this.apiService.apiCall('GET', allDiv).subscribe(res => {
+      this.divisionLists = res;
+    })
+
+  }
+
+  addList(list, name, from, to, type, postName, imageUrl?, parent?, unit?) {
     const headers = new HttpHeaders({
        'no-auth': 'true',
     });
-    list.push(
-      {
+    let api;
+    if( parent ){
+      api = this.apiBase + type + parent + postName;
+    } else {
+      api = this.apiBase + type + postName;
+    }
+
+
+    const value = {
         'name': name.value,
         'fromAge': +from.value,
         'toAge': +to.value,
-        'scaleUnit': +unit.value
       }
-    );
+      if( unit ) {
+        value['scaleUnit'] = unit.value;
+      }
+      if( imageUrl ) {
+        value['bgImageURL'] = imageUrl.value;
+      }
 
-    this.apiService.apiCall('POST', this.apiBase, list[list.length - 1], false, {headers: headers}).subscribe(res => {
+
+    list.push(value);
+
+    this.apiService.apiCall('POST', api, list[list.length - 1], false, {headers: headers}).subscribe(res => {
       console.log('success');
       console.log(res);
     });

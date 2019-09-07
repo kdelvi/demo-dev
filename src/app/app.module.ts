@@ -19,14 +19,18 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatTreeModule } from '@angular/material/tree';
 import { PostDialogComponent } from './core/post-dialog/post-dialog.component';
+import { PagesListComponent } from './core/pages-list/pages-list.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PostDialogComponent,
-    TimelineComponent
+    TimelineComponent,
+    PagesListComponent
   ],
   imports: [
      BrowserModule,
@@ -45,6 +49,7 @@ import { PostDialogComponent } from './core/post-dialog/post-dialog.component';
     MatInputModule,
     MatTabsModule,
     MatCheckboxModule,
+    MatTreeModule,
   ],
   entryComponents: [PostDialogComponent],
   bootstrap: [AppComponent]

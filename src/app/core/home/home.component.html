@@ -5,14 +5,9 @@
       Contrary to popular belief, Lorem Ipsum is not simply random text.
         It has roots in a piece of classical Latin literature from 45 BC
     </p>
-    <button mat-stroked-button (click)="exploreNow()">Explore Now > </button>
+    <a [routerLink]="['/pages']" mat-stroked-button>Show Me <mat-icon>keyboard_arrow_right</mat-icon></a>
   </div>
   <div>
     <img src="../../../assets/images/earth.png" />
   </div>
 </section>
-<div class="pages-home-list">
-  <div> Page 1</div>
-  <div> Page 2</div>
-  <div> Page 3</div>
-</div>

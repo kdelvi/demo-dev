@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
 import { TimelineComponent } from './core/timeline/timeline.component';
+import { PagesListComponent } from './core/pages-list/pages-list.component';
 
 
 const routes: Routes = [
@@ -11,8 +12,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'pages',
+    path: 'time-line',
     component: TimelineComponent
+  },
+  {
+    path: 'pages',
+    component: PagesListComponent
   }
 ];
 

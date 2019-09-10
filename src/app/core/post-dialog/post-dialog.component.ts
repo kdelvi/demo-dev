@@ -12,6 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class PostDialogComponent implements OnInit {
 
   public invalidCatogary = true;
+  public editMode = false;
 
   pName = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
   pFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
@@ -148,6 +149,7 @@ export class PostDialogComponent implements OnInit {
 
 
   editList(list, name, from , to , unit?) {
+    this.editMode = true
     name.setValue(list.name);
     from.setValue(+list.from);
     to.setValue(+list.to);

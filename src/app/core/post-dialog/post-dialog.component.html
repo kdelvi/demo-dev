@@ -20,6 +20,10 @@
                         <mat-label>Year(s) per pixel</mat-label>
                         <input type="number" matInput placeholder="unit"  [formControl]="pUnit">
                       </mat-form-field>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Image URL</mat-label>
+                        <input matInput placeholder="Enter Image URL" [formControl]="PageimageUrl">
+                      </mat-form-field>
                       <!-- <label for="image-upload" class="img-uplaod-label">
                         <span class="upload-icon">
                           <mat-icon>arrow_upward</mat-icon>
@@ -29,13 +33,16 @@
                       </label> -->
                       <div class="tabs-button mt-2">
                           <!-- <button mat-button mat-stroked-button color="primary" class="mr-2"> Next </button> -->
-                          <button mat-button (click)="addList(pageLists, pName, pFrom, pTo, 'page', 'addPage', null, null, pUnit)" mat-raised-button color="primary"> Add</button>
+                          <button *ngIf="!editMode" mat-button (click)="addList(pageLists, pName, pFrom, pTo, 'page', 'addPage', PageimageUrl, null, pUnit)" mat-raised-button color="primary"> Add</button>
+
+                           <button *ngIf="editMode" mat-button (click)="cancelEdit(pName, pFrom, pTo, PageimageUrl, pUnit)" mat-raised-button color="primary"> Cancel </button>
+                            <button *ngIf="editMode" mat-button (click)="EditPost(pageLists, pName, pFrom, pTo, 'page', 'addPage', PageimageUrl, null, pUnit)" mat-raised-button color="primary"> Edit</button>
                       </div>
                 </div>
                 <section class="list-section">
                   <div *ngIf="pageLists.length > 0" class="list-section-cont">
                       <div class="list-item-cont" *ngFor="let list of pageLists">
-                        <div class="list-item" (click)="editList(list,pName, pFrom, pTo, pUnit)">
+                        <div class="list-item" (click)="editList(list,pName, pFrom, pTo, pUnit,PageimageUrl)">
                             <span>{{list.name}}</span>
                           <span>{{list.from}} - {{list.to}}</span>
                         </div>

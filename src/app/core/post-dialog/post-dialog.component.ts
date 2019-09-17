@@ -14,26 +14,27 @@ export class PostDialogComponent implements OnInit {
   public invalidCatogary = true;
   public editMode = false;
 
-  pName = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  pFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  pTo = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  pUnit = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+  pName = new FormControl('', [Validators.required]);
+  pFrom = new FormControl('', [Validators.required]);
+  pTo = new FormControl('', [Validators.required ]);
+  pUnit = new FormControl('', [Validators.required]);
+  PageimageUrl = new FormControl('', [Validators.required ]);
 
-  slectedPage = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  cName = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  imageUrl = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  cFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  cTo = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+  slectedPage = new FormControl('', [Validators.required ]);
+  cName = new FormControl('', [Validators.required ]);
+  imageUrl = new FormControl('', [Validators.required ]);
+  cFrom = new FormControl('', [Validators.required ]);
+  cTo = new FormControl('', [Validators.required ]);
 
-  slectedCatogory = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  sName = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  sFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  sTo = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+  slectedCatogory = new FormControl('', [Validators.required ]);
+  sName = new FormControl('', [Validators.required ]);
+  sFrom = new FormControl('', [Validators.required ]);
+  sTo = new FormControl('', [Validators.required ]);
 
-  slectedSubCatogory = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  dName = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  dFrom = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
-  dTo = new FormControl('', [Validators.required, this.noWhitespaceValidator]);
+  slectedSubCatogory = new FormControl('', [Validators.required ]);
+  dName = new FormControl('', [Validators.required ]);
+  dFrom = new FormControl('', [Validators.required ]);
+  dTo = new FormControl('', [Validators.required ]);
 
   private apiBase = 'https://fossils.herokuapp.com/api/'
 
@@ -55,11 +56,11 @@ export class PostDialogComponent implements OnInit {
       this.getAllList();
     }
 
-  public noWhitespaceValidator(control: FormControl) {
-      const isWhitespace = (control.value || '').trim().length === 0;
-      const isValid = !isWhitespace;
-      return isValid ? null : { 'whitespace': true };
-  }
+  // public noWhitespaceValidator(control: FormControl) {
+  //     const isWhitespace = (control.value || '').trim().length === 0;
+  //     const isValid = !isWhitespace;
+  //     return isValid ? null : { 'whitespace': true };
+  // }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -112,6 +113,65 @@ export class PostDialogComponent implements OnInit {
       }
       if( imageUrl ) {
         value['bgImageURL'] = imageUrl.value;
+        value['bkgImage'] = imageUrl.value;
+      }
+
+
+    list.push(value);
+
+    this.apiService.apiCall('POST', api, value , false, {headers: headers}).subscribe(res => {
+      console.log(res);
+      this.getAllList();
+    });
+
+    name.setValue('');
+    from.setValue('');
+    to.setValue('');
+
+    if(unit) {
+    unit.setValue('');
+    unit.markAsUntouched();
+    }
+
+    if(parent) {
+      parent.setValue('');
+      parent.markAsUntouched();
+    }
+
+
+    if(imageUrl) {
+      imageUrl.setValue('');
+      imageUrl.markAsUntouched();
+    }
+
+    name.markAsUntouched();
+    from.markAsUntouched();
+    to.markAsUntouched();
+  }
+
+  EditPost(list, name, from, to, type, postName, imageUrl?, parent?, unit?) {
+        const headers = new HttpHeaders({
+       'no-auth': 'true',
+    });
+    let api;
+    if( parent ){
+      api = this.apiBase + type +'/'+ parent.value + '/' + postName;
+    } else {
+      api = this.apiBase + type + '/' + postName;
+    }
+
+
+    const value = {
+        'name': name.value,
+        'fromAge': +from.value,
+        'toAge': +to.value,
+      }
+      if( unit ) {
+        value['scaleUnit'] = unit.value;
+      }
+      if( imageUrl ) {
+        value['bgImageURL'] = imageUrl.value;
+        value['bkgImage'] = imageUrl.value;
       }
 
 
@@ -148,12 +208,27 @@ export class PostDialogComponent implements OnInit {
   }
 
 
-  editList(list, name, from , to , unit?) {
+  editList(list, name, from , to , unit?, imgUrl?) {
+    console.log(list)
     this.editMode = true
     name.setValue(list.name);
-    from.setValue(+list.from);
-    to.setValue(+list.to);
+    from.setValue(list.fromAge);
+    to.setValue(list.toAge);
 
+    unit.setValue(list.scaleUnit);
+    imgUrl.setValue(list.bkgImage);
+  }
+
+  cancelEdit(name, from , to , unit?, imgUrl?) {
+    this.editMode = false
+    name.setValue('');
+    from.setValue('');
+    to.setValue('');
+
+    unit.setValue('');
+    imgUrl.setValue('');
   }
 
 }
+
+

@@ -21,6 +21,8 @@ export class ApiService implements OnDestroy {
 
   private subscription: Subscription;
 
+  public loggedIn = false;
+
   constructor(
     private http: HttpClient
     // private pageLoaderService: PageLoaderService
@@ -189,6 +191,14 @@ export class ApiService implements OnDestroy {
   hardResetProcessQ() {
     this.processQueue = [];
     this.processQ(null);
+  }
+
+  isLoggedin() {
+    return this.loggedIn;
+  }
+
+  setLogin() {
+    this.loggedIn = true;
   }
 
 }

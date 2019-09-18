@@ -22,6 +22,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatTreeModule } from '@angular/material/tree';
 import { PostDialogComponent } from './core/post-dialog/post-dialog.component';
 import { PagesListComponent } from './core/pages-list/pages-list.component';
+import { LoginComponent } from './core/login/login.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PagesListComponent } from './core/pages-list/pages-list.component';
     HomeComponent,
     PostDialogComponent,
     TimelineComponent,
-    PagesListComponent
+    PagesListComponent,
+    LoginComponent
   ],
   imports: [
      BrowserModule,
@@ -51,7 +53,7 @@ import { PagesListComponent } from './core/pages-list/pages-list.component';
     MatCheckboxModule,
     MatTreeModule,
   ],
-  entryComponents: [PostDialogComponent],
+  entryComponents: [PostDialogComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

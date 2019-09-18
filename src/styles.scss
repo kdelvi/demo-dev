@@ -20,9 +20,12 @@ body::-webkit-scrollbar { height: 0 !important }
 body { overflow: -moz-scrollbars-none; }
 body { -ms-overflow-style: none; }
 
+.text-light {}
 
-
-
+.bg-button {
+  background-color: #ff5722;
+  color: #fff;
+}
 
 // material styles overriding
 

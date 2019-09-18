@@ -1,6 +1,13 @@
 <section class="page-list-cont">
 <div class="page-list-blocks flex-wrap">
-  <div class="page-tree-wrap" *ngFor="let page of pageList; let i = index">
+  <div *ngIf="pageList.length === 0" class="text-center">
+    <img class="no-data-img" src="../../../assets/images/roccket.jpg"  />
+    <h4 class="m-4"> No Data Available  </h4>
+    <div *ngIf="!isLoggedIn" class="text-dark">There is no Data to show you right now</div>
+    <button *ngIf="!isLoggedIn" mat-button class="bg-button mt-4 login-btn" (click)="openLogin()">Login</button>
+    <div *ngIf="isLoggedIn">Click on <mat-icon>add_circle</mat-icon> icon from top right to Add</div>
+  </div>
+  <div class="page-tree-wrap" *ngFor="let page of pageList; let i = index" [style.background]="sanUrl('https://images.squarespace-cdn.com/content/v1/556d800ae4b0e8f91507450c/1550755753246-YVE5GYKH3G8RKMYEJHJZ/ke17ZwdGBToddI8pDm48kA47qaxzGU3oa60Mv3IrElh7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0hGaawTDWlunVGEFKwsEdnE_ZbuhWuTjDl9Hn0Vaidb23CyzgPgNZ_l0zINYXrCLdg/dna-3539309.jpg')">
   <mat-tree [dataSource]="dataSource[i]" [treeControl]="treeControl" class="example-tree">
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>

@@ -6,7 +6,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 
 import { LoginComponent } from '../login/login.component';
-import { PostDialogComponent } from '../post-dialog/post-dialog.component';
+import {PostDialogComponent} from '../post-dialog/post-dialog.component';
 
 
 /**
@@ -22,6 +22,9 @@ export class PagesListComponent implements OnInit {
   isLoggedIn = true;
   treeControl = new NestedTreeControl<any>(node => node.child);
   dataSource = [];
+  isLoading ;
+
+  private apiBase = 'https://fossils.herokuapp.com/api/'
 
   constructor(private apiService: ApiService, private sanitization: DomSanitizer, public dialog: MatDialog) {}
 
@@ -55,10 +58,13 @@ export class PagesListComponent implements OnInit {
   }
 
   getData() {
-    const api ='https://api.myjson.com/bins/vp6lp';
+    // const api ='https://api.myjson.com/bins/vp6lp';
+    this.isLoading =true;
+    const api = this.apiBase + 'page/resultPage'
     this.apiService.apiCall('GET',api).subscribe(res => {
+      this.isLoading = false;
       for( let i = 0; i < res.length ; i++) {
-        //this.pageList = res;
+        // this.pageList = res;
         this.dataSource[i] = new MatTreeNestedDataSource<any>();
         this.dataSource[i].data = [res[i]];
       }

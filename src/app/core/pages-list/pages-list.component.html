@@ -1,4 +1,4 @@
-<section class="page-list-cont">
+<section class="page-list-cont" *ngIf="!isLoading">
 <div class="page-list-blocks flex-wrap">
   <div *ngIf="pageList.length === 0" class="text-center">
     <img class="no-data-img" src="../../../assets/images/roccket.jpg"  />
@@ -38,6 +38,10 @@
   <a [routerLink]="['/time-line']"> Explore Now</a>
 </div>
 </div>
+</section>
+
+<section class="loading-full-window bg-light" *ngIf="isLoading">
+  <div><img src="../../../assets/images/loader.gif" /><div class="laading-text text-center">Loading, Please wait...</div></div>
 </section>
 
 

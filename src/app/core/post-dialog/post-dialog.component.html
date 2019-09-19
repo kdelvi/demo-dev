@@ -46,7 +46,7 @@
                             <span>{{list.name}}</span>
                           <span>{{list.from}} - {{list.to}}</span>
                         </div>
-                        <mat-icon class="remove-item" (click)="delete('/page/',list.id)">delete_forever</mat-icon>
+                        <mat-icon class="remove-item" (click)="delete('page/',list.id)">delete_forever</mat-icon>
                       </div>
                   </div>
                   <div class="empty-state text-center" *ngIf="pageLists.length === 0">

@@ -6,6 +6,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 
 import { LoginComponent } from '../login/login.component';
+import { PostDialogComponent } from '../post-dialog/post-dialog.component';
 
 
 /**
@@ -18,7 +19,7 @@ import { LoginComponent } from '../login/login.component';
 })
 export class PagesListComponent implements OnInit {
   pageList = [];
-  isLoggedIn = false;
+  isLoggedIn = true;
   treeControl = new NestedTreeControl<any>(node => node.child);
   dataSource = [];
 
@@ -26,6 +27,17 @@ export class PagesListComponent implements OnInit {
 
   sanUrl(link) {
     return this.sanitization.bypassSecurityTrustStyle(`url(${link}) no-repeat`);
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PostDialogComponent, {
+      panelClass:'add-dialog-cont',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   ngOnInit() {

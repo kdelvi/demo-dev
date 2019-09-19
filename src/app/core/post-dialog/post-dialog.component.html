@@ -33,10 +33,10 @@
                       </label> -->
                       <div class="tabs-button mt-2">
                           <!-- <button mat-button mat-stroked-button color="primary" class="mr-2"> Next </button> -->
-                          <button *ngIf="!editMode" mat-button (click)="addList(pageLists, pName, pFrom, pTo, 'page', 'addPage', PageimageUrl, null, pUnit)" mat-raised-button color="primary"> Add</button>
+                          <button *ngIf="!editModePage" mat-button (click)="addList(pageLists, pName, pFrom, pTo, 'page', 'addPage', PageimageUrl, null, pUnit)" mat-raised-button color="primary"> Add</button>
 
-                           <button *ngIf="editMode" mat-button (click)="cancelEdit(pName, pFrom, pTo, PageimageUrl, pUnit)" mat-raised-button color="primary"> Cancel </button>
-                            <button *ngIf="editMode" mat-button (click)="EditPost(pageLists, pName, pFrom, pTo, 'page', 'addPage', PageimageUrl, null, pUnit)" mat-raised-button color="primary"> Edit</button>
+                           <button *ngIf="editModePage" mat-button (click)="cancelEdit(editModePage, pName, pFrom, pTo, PageimageUrl, pUnit)" mat-raised-button color="primary"> Cancel </button>
+                            <button *ngIf="editModePage" mat-button (click)="EditPost( pageLists, pName, pFrom, pTo, 'page', 'addPage', PageimageUrl, null, pUnit)" mat-raised-button color="primary"> Edit</button>
                       </div>
                 </div>
                 <section class="list-section">
@@ -46,7 +46,7 @@
                             <span>{{list.name}}</span>
                           <span>{{list.from}} - {{list.to}}</span>
                         </div>
-                        <mat-icon class="remove-item">delete_forever</mat-icon>
+                        <mat-icon class="remove-item" (click)="delete('/page/',list.id)">delete_forever</mat-icon>
                       </div>
                   </div>
                   <div class="empty-state text-center" *ngIf="pageLists.length === 0">
@@ -88,7 +88,7 @@
                     <input matInput placeholder="to" [formControl]="cTo">
                   </mat-form-field>
                   <div class="tabs-button mt-2">
-                      <button mat-button mat-raised-button color="primary" (click)="addList(catogoryLists, cName, cFrom, cTo, 'catogory', 'addCatogory', imageUrl, slectedPage)"> Add</button>
+                      <button mat-button mat-raised-button color="primary" (click)="addList(catogoryLists, cName, cFrom, cTo, 'category', 'addCategory', imageUrl, slectedPage)"> Add</button>
                   </div>
                 </div>
                 <section class="list-section">
@@ -137,7 +137,7 @@
                         <input matInput placeholder="to" [formControl]="sTo">
                       </mat-form-field>
                       <div class="tabs-button mt-2">
-                          <button mat-button mat-raised-button color="primary" (click)="addList(subCatogoryLists, sName, sFrom, sTo, 'subCatogory', 'addSubCatogory', null, slectedCatogory)"> Add</button>
+                          <button mat-button mat-raised-button color="primary" (click)="addList(subCatogoryLists, sName, sFrom, sTo, 'subCategory', 'addSubCategory', null, slectedCatogory)"> Add</button>
                       </div>
                     </div>
                   <section class="list-section">
@@ -166,9 +166,9 @@
               <mat-tab label="Division" >
                   <div class="d-flex wrap-section">
                       <div class="catogory-wrap">
-                          <mat-form-field appearance="outline" [formControl]="slectedSubCatogory">
+                          <mat-form-field appearance="outline" >
                               <mat-label>Select Sub-Catogory</mat-label>
-                              <mat-select>
+                              <mat-select [formControl]="slectedSubCatogory">
                                 <mat-option *ngFor="let catogory of subCatogoryLists" [value]="catogory.id">
                                   {{catogory.name}}
                                 </mat-option>
@@ -187,7 +187,7 @@
                           <input matInput placeholder="to" [formControl]="dTo">
                         </mat-form-field>
                         <div class="tabs-button mt-2">
-                            <button mat-button mat-raised-button color="primary" (click)="addList(divisionLists, dName, dFrom, dTo, 'subCatogoryDiv', 'addSubCatogory', null, slectedSubCatogory)"> Add</button>
+                            <button mat-button mat-raised-button color="primary" (click)="addList(divisionLists, dName, dFrom, dTo, 'subCategoryDiv', 'addSubCategory', null, slectedSubCatogory)"> Add</button>
                         </div>
                       </div>
                     <section class="list-section">

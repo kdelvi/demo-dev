@@ -12,7 +12,13 @@ import { HttpHeaders } from '@angular/common/http';
 export class PostDialogComponent implements OnInit {
 
   public invalidCatogary = true;
-  public editMode = false;
+
+  public editModePage = false;
+  public editModeCat = false;
+  public editModeSub = false;
+  public editModeDiv = false;
+
+  public EditModeItem = false;
 
   pName = new FormControl('', [Validators.required]);
   pFrom = new FormControl('', [Validators.required]);
@@ -96,6 +102,7 @@ export class PostDialogComponent implements OnInit {
        'no-auth': 'true',
     });
     let api;
+    console.log(parent);
     if( parent ){
       api = this.apiBase + type +'/'+ parent.value + '/' + postName;
     } else {
@@ -208,9 +215,9 @@ export class PostDialogComponent implements OnInit {
   }
 
 
-  editList(list, name, from , to , unit?, imgUrl?) {
+  editList(field, list, name, from , to , unit?, imgUrl?) {
     console.log(list)
-    this.editMode = true
+    field = true
     name.setValue(list.name);
     from.setValue(list.fromAge);
     to.setValue(list.toAge);
@@ -219,14 +226,24 @@ export class PostDialogComponent implements OnInit {
     imgUrl.setValue(list.bkgImage);
   }
 
-  cancelEdit(name, from , to , unit?, imgUrl?) {
-    this.editMode = false
+  cancelEdit(field, name, from , to , unit?, imgUrl?) {
+    field = false
     name.setValue('');
     from.setValue('');
     to.setValue('');
 
     unit.setValue('');
     imgUrl.setValue('');
+  }
+
+  delete (type, id) {
+    console.log('here')
+    const api = this.apiBase + type + 'delete/' + id;
+    this.apiService.apiCall('DELETE', api).subscribe (res => {
+      alert ('deleted Succfully');
+      this.getAllList();
+    })
+
   }
 
 }
